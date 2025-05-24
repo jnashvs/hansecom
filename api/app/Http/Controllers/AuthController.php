@@ -29,11 +29,8 @@ class AuthController extends Controller
             $request->input('password')
         );
 
-        $token = JWTAuth::fromUser($user);
-
         return $this->apiResponse([
             'success' => true,
-            'token' => $token,
             'user' => $user,
         ]);
     }

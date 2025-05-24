@@ -1,0 +1,8 @@
+{
+  "auth": {
+    "login": "/v1/auth/login",
+    "refresh": "/v1/auth/refresh",
+    "whoami": "/v1/auth/me",
+    "register": "/v1/auth/create"
+  }
+}
