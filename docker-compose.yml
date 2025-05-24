@@ -38,12 +38,24 @@ services:
       - "1026:1025"
       - "8026:8025"
 
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: rabbitmq-hanse
+    networks:
+      - hanse-laravel-network
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    environment:
+      RABBITMQ_DEFAULT_USER: guest
+      RABBITMQ_DEFAULT_PASS: guest
+
   laravel-api:
     image: bitnami/laravel:latest
     networks:
       - hanse-laravel-network
     ports:
-      - "8084:8080" # Changed port to avoid conflict and map to standard Laravel dev server port
+      - "8084:8080"
     volumes:
       - ./api:/app
     environment:
@@ -53,6 +65,13 @@ services:
       DB_PORT: 3306
       DB_USERNAME: root
       DB_DATABASE: hanse_db
+      QUEUE_CONNECTION: rabbitmq
+      RABBITMQ_HOST: rabbitmq
+      RABBITMQ_PORT: 5672
+      RABBITMQ_USER: guest
+      RABBITMQ_PASSWORD: guest
+      RABBITMQ_VHOST: /
+      RABBITMQ_QUEUE: emails
     working_dir: /app
     command: >
       bash -c "
@@ -61,11 +80,11 @@ services:
       "
 
   vue-frontend:
-    image: node:latest # Using a generic Node.js image for Vue
+    image: node:latest
     networks:
       - hanse-laravel-network
     ports:
-      - "8085:8080" # Map host port 8085 to container's 8080 (common for Vue dev server)
+      - "8085:8080"
     volumes:
       - ./frontend:/app
     working_dir: /app

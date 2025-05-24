@@ -4,8 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\User\LoginRequest;
 use App\Http\Requests\User\RegisterRequest;
+use App\Mail\UserRegisteredNotificationEmail;
 use App\Repositories\User\UserRepositoryInterface;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 use Tymon\JWTAuth\Exceptions\JWTException;
 
 class AuthController extends Controller
@@ -22,16 +25,24 @@ class AuthController extends Controller
      */
     public function create(RegisterRequest $request)
     {
-        $user = $this->userRepository->create(
-            $request->input('name'),
-            $request->input('email'),
-            $request->input('password')
-        );
+        try {
+            $user = $this->userRepository->create(
+                $request->input('name'),
+                $request->input('email'),
+                $request->input('password')
+            );
 
-        return $this->apiResponse([
-            'success' => true,
-            'user' => $user,
-        ]);
+            Log::info("sending email to user after registration ...");
+            Mail::to($user->email)->send(new UserRegisteredNotificationEmail($user));
+
+            return $this->apiResponse([
+                'success' => true,
+                'user' => $user,
+            ]);
+        } catch (\Throwable $e) {
+            Log::error($e->getMessage());
+            return $this->apiError($e->getMessage(), 401);
+        }
     }
 
     /**
