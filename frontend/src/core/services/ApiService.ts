@@ -121,8 +121,7 @@ export const ApiService = (endpoint: string) => {
       axiosInstance
         .get(endpoint, { params })
         .then((res) => {
-          data.value = res.data;
-          resolve(res.data);
+          resolve(res.data.data);
         })
         .catch((e) => {
           error.value = e;
@@ -143,7 +142,6 @@ export const ApiService = (endpoint: string) => {
       axiosInstance
         .post(endpoint, payload)
         .then((res) => {
-          data.value = res.data
           resolve(res.data.data)
         })
         .catch((e) => {
@@ -165,8 +163,7 @@ export const ApiService = (endpoint: string) => {
       axiosInstance
         .put(endpoint, payload)
         .then((res) => {
-          data.value = res.data;
-          resolve(res.data);
+          resolve(res.data.data);
         })
         .catch((e) => {
           error.value = e;
@@ -187,8 +184,7 @@ export const ApiService = (endpoint: string) => {
       axiosInstance
         .delete(endpoint, { data: payload })
         .then((res) => {
-          data.value = res.data;
-          resolve(res.data);
+          resolve(res.data.data);
         })
         .catch((e) => {
           error.value = e;

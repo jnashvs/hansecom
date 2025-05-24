@@ -1,0 +1,21 @@
+.navbar {
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  .navbar-brand {
+    font-size: 1.4rem;
+    letter-spacing: 0.5px;
+    i {
+      color: #fff200;
+    }
+  }
+  .nav-link {
+    font-weight: 500;
+    color: #f8fafc !important;
+    &.active, &:hover {
+      color: #0a0a0a !important;
+    }
+  }
+  .dropdown-menu {
+    min-width: 180px;
+    font-size: 0.95rem;
+  }
+}

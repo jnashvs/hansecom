@@ -5,9 +5,11 @@ import type { AuthState } from "@/core/models/Auth/AuthState";
 import ApiPath from "@/core/config/api_path.json";
 import { ApiService } from "@/core/services/ApiService";
 import router from '@/router';
-import { saveToken, destroyToken } from '@/core/services/JwtService';
+import { getToken, saveToken, destroyToken } from '@/core/services/JwtService';
 import type { RegisterRequest } from "@/core/models/Auth/RegisterRequest";
 import type {RegisterResponse} from "@/core/models/Auth/RegisterResponse.ts";
+import type { UserDetails } from '@/core/models/UserDetails';
+import {NotificationHelper} from "@/core/helpers/NotificationHelper.ts";
 
 export const useSessionStore = defineStore('session', {
   state: (): AuthState => ({
@@ -21,12 +23,19 @@ export const useSessionStore = defineStore('session', {
   },
 
   actions: {
+    initSession() {
+      const token = getToken();
+      if (token) {
+        this.token = token;
+        this.fetchUserData();
+      }
+    },
     async fetchUserData() {
       if (this.token && !this.userDetails) {
         const userDetailsIf = ApiService(ApiPath.auth.whoami);
         try {
-          const data = await userDetailsIf.get();
-          this.userDetails = data.data;
+          const data: UserDetails = await userDetailsIf.get();
+          this.userDetails = data;
         } catch (error) {
           destroyToken();
           this.token = null;
@@ -45,6 +54,7 @@ export const useSessionStore = defineStore('session', {
         if (token) {
           saveToken(token);
           this.token = token;
+          this.userDetails = response?.user;
           this.error = undefined;
         }
       } catch (error) {
@@ -60,6 +70,7 @@ export const useSessionStore = defineStore('session', {
         const response: RegisterResponse = await registerIf.post(data);
 
         if (response.success) {
+          NotificationHelper.showSuccess("User created successfully!");
           await router.push({name: "login"});
         }
       } catch (error) {
@@ -85,11 +96,17 @@ export const useSessionStore = defineStore('session', {
     },
 
     async doLogout(): Promise<void> {
-      destroyToken();
-      this.token = undefined;
-      this.userDetails = undefined;
-      this.error = undefined;
-      router.push({ name: "login" });
+      try {
+        const logoutIf = ApiService(ApiPath.auth.logout)
+        await logoutIf.post();
+      } catch (error) {
+        console.error(error);
+      }
+      destroyToken()
+      this.token = undefined
+      this.userDetails = undefined
+      this.error = undefined
+      router.push({ name: "login" })
     },
   },
 });
