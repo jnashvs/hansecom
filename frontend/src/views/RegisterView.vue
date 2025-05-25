@@ -1,5 +1,5 @@
 <template>
-  <div class="register container">
+  <div class="register container form-container">
     <h1 class="text-center">Register</h1>
     <form @submit.prevent="submitForm" class="needs-validation" novalidate>
       <div class="mb-3">
@@ -23,7 +23,7 @@
           {{ errors.password }}
         </div>
       </div>
-      <button type="submit" class="btn btn-primary w-100" :disabled="isLoading">
+      <button type="submit" class="btn btn-primary w-100 mt-3" :disabled="isLoading">
         <span v-if="isLoading">
           <span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
           <span>Submitting...</span>

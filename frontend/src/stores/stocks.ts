@@ -17,7 +17,7 @@ export const useStocksStore = defineStore('stocks', {
     async fetchStocks({
       search = '',
       pageIndex = 0,
-      pageSize = 10,
+      pageSize = 6,
       sortBy = 'created_at',
       sortDesc
     }: ParamsQuery = {}) {

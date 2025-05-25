@@ -57,7 +57,6 @@ import 'bootstrap-icons/font/bootstrap-icons.css'
 
 const sessionStore = useSessionStore()
 const { isAuthenticated, userDetails } = storeToRefs(sessionStore)
-const router = useRouter()
 
 function logout() {
   sessionStore.doLogout()

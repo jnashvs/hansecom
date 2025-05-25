@@ -1,6 +1,6 @@
 <template>
-  <div class="container mt-4">
-    <h2>Stock History</h2>
+  <div class="container stock-history-container mt-4">
+    <h3>Stock Market Overview</h3>
 
     <form class="my-4" @submit.prevent="searchQuote">
       <div class="input-group">
@@ -19,26 +19,28 @@
         <div v-if="stocksStore.error" class="alert alert-danger">{{ stocksStore.error }}</div>
       </div>
       <div :class="quoteResult ? 'col-12 col-md-8' : 'col-12'">
-        <table v-if="!stocksStore.loading && !stocksStore.error" class="table table-striped table-bordered">
+        <h5 class="mb-3">Stock History</h5>
+
+        <table v-if="!stocksStore.loading && !stocksStore.error" class="table table-striped table-bordered rounded-2">
           <thead class="thead-dark">
-          <tr>
-            <th>Date</th>
-            <th>Symbol</th>
-            <th>Open</th>
-            <th>High</th>
-            <th>Low</th>
-            <th>Close</th>
-          </tr>
+            <tr>
+              <th>Date</th>
+              <th>Symbol</th>
+              <th>Open</th>
+              <th>High</th>
+              <th>Low</th>
+              <th>Close</th>
+            </tr>
           </thead>
           <tbody>
-          <tr v-for="stock in stocksStore.items" :key="stock.id">
-            <td>{{ stock.date }}</td>
-            <td>{{ stock.symbol }}</td>
-            <td>{{ stock.open }}</td>
-            <td>{{ stock.high }}</td>
-            <td>{{ stock.low }}</td>
-            <td>{{ stock.close }}</td>
-          </tr>
+            <tr v-for="stock in stocksStore.items" :key="stock.id">
+              <td>{{ stock.date }}</td>
+              <td>{{ stock.symbol }}</td>
+              <td>{{ stock.open }}</td>
+              <td>{{ stock.high }}</td>
+              <td>{{ stock.low }}</td>
+              <td>{{ stock.close }}</td>
+            </tr>
           </tbody>
         </table>
         <div v-if="!stocksStore.loading && !stocksStore.error && stocksStore.items.length === 0" class="alert alert-warning">
@@ -48,13 +50,13 @@
         <nav v-if="totalPages > 1">
           <ul class="pagination justify-content-center mt-3">
             <li class="page-item" :class="{ disabled: currentPage === 1 }">
-              <button class="page-link" @click="goToPage(currentPage - 1)">Previous</button>
+              <button class="page-link btn-sm" @click="goToPage(currentPage - 1)">Previous</button>
             </li>
             <li v-for="page in totalPages" :key="page" class="page-item" :class="{ active: currentPage === page }">
-              <button class="page-link" @click="goToPage(page)">{{ page }}</button>
+              <button class="page-link btn-sm" @click="goToPage(page)">{{ page }}</button>
             </li>
             <li class="page-item" :class="{ disabled: currentPage === totalPages }">
-              <button class="page-link" @click="goToPage(currentPage + 1)">Next</button>
+              <button class="page-link btn-sm" @click="goToPage(currentPage + 1)">Next</button>
             </li>
           </ul>
         </nav>
@@ -74,7 +76,7 @@ const quoteSymbol = ref('');
 const quoteResult = ref<Stock|null>(null);
 const isLoading = ref(false);
 const quoteError = ref('');
-const pageSize = 10;
+const pageSize = 6;
 const currentPage = ref(1);
 
 const totalPages = computed(() => Math.ceil(stocksStore.recordsTotal / pageSize));
