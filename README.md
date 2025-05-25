@@ -67,8 +67,7 @@ cp .env.example .env
 composer install
 php artisan key:generate
 php artisan migrate
-# (Optional) To seed with example data:
-# php artisan db:seed
+php artisan db:seed
 ```
 
 ---
@@ -140,6 +139,10 @@ RABBITMQ_QUEUE=emails
 ```
 
 ---
+
+## How to login in the system
+Email: default@example.com
+Password: password
 
 ## 🧪 Useful Commands
 
