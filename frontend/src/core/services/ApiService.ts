@@ -66,7 +66,7 @@ export const ApiService = (endpoint: string) => {
           response = axiosErr.response.data;
           errorList = [response.message, response.details].filter(Boolean);
           NotificationHelper.showError(errorList);
-
+          sessionStore.doLogout();
           break;
         case 403:
           NotificationHelper.showError([
@@ -113,7 +113,15 @@ export const ApiService = (endpoint: string) => {
     return null;
   });
 
-  const get = (params?: Record<string, never>) => {
+  const get = (params?: {
+    params: {
+      search: string | undefined;
+      pageIndex: number | undefined;
+      pageSize: number | undefined;
+      sortBy: string | undefined;
+      sortDesc: boolean | undefined
+    }
+  }) => {
     loading.value = true;
     error.value = undefined;
 

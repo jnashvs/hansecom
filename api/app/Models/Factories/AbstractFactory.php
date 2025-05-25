@@ -71,10 +71,8 @@ abstract class AbstractFactory implements FactoryInterface
         array $searchByColumns = [],
         int $pageIndex = 0,
         int $pageSize = 25,
-        string $sortBy = 'id',
+        string $sortBy = 'created_at',
         bool $sortDesc = true,
-        Carbon|null $dateFrom = null,
-        Carbon|null $dateTo = null,
         array $arrRelations = [],
         bool $isPublic = false
     ): mixed {
@@ -93,10 +91,6 @@ abstract class AbstractFactory implements FactoryInterface
                     }
                 });
             }
-
-            // Apply date filters
-            $query->when($dateFrom, fn ($q) => $q->where('date', '>=', $dateFrom))
-                ->when($dateTo, fn ($q) => $q->where('date', '<=', $dateTo));
 
             // Apply sorting
             $sortOrder = $sortDesc ? 'DESC' : 'ASC';

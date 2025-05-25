@@ -8,14 +8,6 @@
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <li class="nav-item">
-            <RouterLink class="nav-link" to="/">Home</RouterLink>
-          </li>
-          <li class="nav-item">
-            <RouterLink class="nav-link" to="/about">About</RouterLink>
-          </li>
-        </ul>
         <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
           <template v-if="isAuthenticated">
             <li class="nav-item dropdown">
@@ -42,15 +34,9 @@
       </div>
     </div>
   </nav>
-  <main class="bg-light min-vh-100 d-flex flex-column justify-content-center align-items-center">
-    <div class="container py-5">
-      <div class="row justify-content-center">
-        <div class="col-12 col-md-10 col-lg-8">
-          <div class="p-4 p-md-5 bg-white rounded-4 shadow-sm">
-            <RouterView />
-          </div>
-        </div>
-      </div>
+  <main class="bg-light min-vh-100 d-flex">
+    <div class="container pt-5">
+      <RouterView />
     </div>
   </main>
   <footer class="bg-primary text-white text-center py-3 mt-auto shadow-sm">

@@ -5,49 +5,34 @@ namespace App\Mail;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
-use Illuminate\Mail\Mailables\Content;
-use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
+use App\Models\Stock;
 
 class StockQuoteMail extends Mailable implements ShouldQueue
 {
     use Queueable, SerializesModels;
 
+    public Stock $stock;
+
     /**
      * Create a new message instance.
-     */
-    public function __construct()
-    {
-        //
-    }
-
-    /**
-     * Get the message envelope.
-     */
-    public function envelope(): Envelope
-    {
-        return new Envelope(
-            subject: 'Stock Quote Mail',
-        );
-    }
-
-    /**
-     * Get the message content definition.
-     */
-    public function content(): Content
-    {
-        return new Content(
-            markdown: 'emails.stockquote',
-        );
-    }
-
-    /**
-     * Get the attachments for the message.
      *
-     * @return array<int, \Illuminate\Mail\Mailables\Attachment>
+     * @param Stock $stock
      */
-    public function attachments(): array
+    public function __construct(Stock $stock)
     {
-        return [];
+        $this->stock = $stock;
+    }
+
+    /**
+     * Build the message.
+     *
+     * @return $this
+     */
+    public function build()
+    {
+        return $this->subject('Stock Stock for ' . $this->stock->getSymbol())
+                    ->view('emails.stockquote')
+                    ->with(['stock' => $this->stock]);
     }
 }

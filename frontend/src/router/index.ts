@@ -4,19 +4,7 @@ import { useSessionStore } from '@/stores/session';
 const routes = [
   {
     path: '/',
-    redirect: '/home',
-  },
-  {
-    path: '/home',
-    name: 'home',
-    component: () => import('@/views/HomeView.vue'),
-    meta: { requiresAuth: true, pageTitle: 'Home' },
-  },
-  {
-    path: '/about',
-    name: 'about',
-    component: () => import('@/views/AboutView.vue'),
-    meta: { requiresAuth: true, pageTitle: 'About' },
+    redirect: '/stocks/history',
   },
   {
     path: '/login',
@@ -29,6 +17,12 @@ const routes = [
     name: 'register',
     component: () => import('@/views/RegisterView.vue'),
     meta: { guest: true, pageTitle: 'Register' },
+  },
+  {
+    path: '/stocks/history',
+    name: 'stocks-history',
+    component: () => import('@/views/StockHistoryView.vue'),
+    meta: { requiresAuth: true, pageTitle: 'Stocks History' },
   },
   {
     path: '/:pathMatch(.*)*',

@@ -1,12 +1,15 @@
-<x-mail::message>
-# Introduction
+@extends('emails.layouts.main')
+@section('content')
 
-The body of your message.
+<h1>Stock Quote for {{ $stock->getSymbol() }}</h1>
 
-<x-mail::button :url="''">
-Button Text
-</x-mail::button>
+<p>Name: {{ $stock->getName() }}</p>
+<p>Symbol: {{ $stock->getSymbol() }}</p>
+<p>Price: {{ $stock->getPrice() }}</p>
+<p>Open: {{ $stock->getOpen() }}</p>
+<p>High: {{ $stock->getHigh() }}</p>
+<p>Low: {{ $stock->getLow() }}</p>
+<p>Close: {{ $stock->getClose() }}</p>
+<p>Created At: {{ $stock->getCreatedAt() }}</p>
 
-Thanks,<br>
-{{ config('app.name') }}
-</x-mail::message>
+@endsection

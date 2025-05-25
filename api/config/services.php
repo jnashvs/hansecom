@@ -34,9 +34,10 @@ return [
             'channel' => env('SLACK_BOT_USER_DEFAULT_CHANNEL'),
         ],
     ],
-    
-    ' alphavantage' => [
+
+    'alphavantage' => [
         'key' => env('ALPHAVANTAGE_KEY'),
+        'url' => env('ALPHAVANTAGE_URL'),
     ],
 
 ];

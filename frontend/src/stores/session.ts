@@ -9,7 +9,7 @@ import { getToken, saveToken, destroyToken } from '@/core/services/JwtService';
 import type { RegisterRequest } from "@/core/models/Auth/RegisterRequest";
 import type {RegisterResponse} from "@/core/models/Auth/RegisterResponse.ts";
 import type { UserDetails } from '@/core/models/UserDetails';
-import {NotificationHelper} from "@/core/helpers/NotificationHelper.ts";
+import { NotificationHelper } from "@/core/helpers/NotificationHelper.ts";
 
 export const useSessionStore = defineStore('session', {
   state: (): AuthState => ({
@@ -34,8 +34,7 @@ export const useSessionStore = defineStore('session', {
       if (this.token && !this.userDetails) {
         const userDetailsIf = ApiService(ApiPath.auth.whoami);
         try {
-          const data: UserDetails = await userDetailsIf.get();
-          this.userDetails = data;
+          this.userDetails = await userDetailsIf.get() as UserDetails;
         } catch (error) {
           destroyToken();
           this.token = null;

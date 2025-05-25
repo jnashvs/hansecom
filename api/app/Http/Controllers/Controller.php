@@ -24,14 +24,14 @@ class Controller extends BaseController
 
     protected function apiResponsePages(mixed $payload, ?int $recordsTotal = null, int $code = 200): JsonResponse
     {
-        $result = ['data' => $payload];
+        $result = ['items' => $payload];
 
         if (!empty($recordsTotal)) {
             $result['recordsTotal'] = $recordsTotal;
         }
 
         return response()->json(
-            $result,
+            ["data" => $result],
             $code
         );
     }

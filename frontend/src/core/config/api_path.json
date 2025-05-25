@@ -5,5 +5,9 @@
     "whoami": "/v1/auth/me",
     "register": "/v1/auth/create",
     "logout": "/v1/auth/logout"
+  },
+  "stocks": {
+    "quote": "/v1/stocks/quote",
+    "history": "/v1/stocks/history"
   }
 }

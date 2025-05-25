@@ -13,6 +13,7 @@ class AppServiceProvider extends ServiceProvider
     {
         $arrBindings = [
             'App\Repositories\User\UserRepositoryInterface' => 'App\Repositories\User\UserRepository',
+            'App\Repositories\Stock\StockRepositoryInterface' => 'App\Repositories\Stock\StockRepository',
         ];
 
         foreach ($arrBindings as $interface => $module) {

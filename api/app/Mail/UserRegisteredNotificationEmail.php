@@ -21,7 +21,6 @@ class UserRegisteredNotificationEmail extends Mailable implements ShouldQueue
 
     public function build()
     {
-        Log::info("email data to be sent: ", [$this->user]);
         return $this->subject('Welcome to Our Platform')
             ->view('emails.registered-user-notification')
             ->with(['user' => $this->user]);
