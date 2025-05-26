@@ -102,10 +102,10 @@ export const useSessionStore = defineStore('session', {
         console.error(error);
       }
       destroyToken()
-      this.token = undefined
-      this.userDetails = undefined
-      this.error = undefined
-      router.push({ name: "login" })
+      this.token = undefined;
+      this.userDetails = undefined;
+      this.error = undefined;
+      await router.push({name: "login"});
     },
   },
 });
