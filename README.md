@@ -68,6 +68,7 @@ composer install
 php artisan key:generate
 php artisan migrate
 php artisan db:seed
+php artisan jwt:secret # then make sure the .env is using the same generated token
 ```
 
 ---
@@ -139,6 +140,13 @@ RABBITMQ_QUEUE=emails
 ```
 
 ---
+
+## How to run the test (example: Unit tests)
+```bash
+touch database/testing.sqlite      # create the sqlite database (optional in case it does not exist)
+php artisan migrate --env=testing  # Run migrations before your test suite starts
+php artisan test                   # Run your test suite
+```
 
 ## How to login in the system
 Email: default@example.com
