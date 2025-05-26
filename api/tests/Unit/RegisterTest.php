@@ -1,11 +1,12 @@
 <?php
 namespace Tests\Unit;
 
+use App\Mail\UserRegisteredNotificationEmail;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Mail;
-use App\Mail\UserRegisteredNotificationEmail;
 use App\Models\User;
+use Tymon\JWTAuth\Facades\JWTAuth;
 
 class RegisterTest extends TestCase
 {
@@ -54,5 +55,25 @@ class RegisterTest extends TestCase
 
         $response->assertStatus(422);
         $response->assertJsonValidationErrors(['email']);
+    }
+
+    #[\PHPUnit\Framework\Attributes\Test]
+    public function it_retrieves_authenticated_user_information()
+    {
+        // Create a user
+        $user = User::factory()->create();
+
+        $token = JWTAuth::fromUser($user);
+
+        $response = $this->getJson('/api/v1/auth/me', ['Authorization' => "Bearer $token"]);
+
+        $response->assertStatus(200);
+        $response->assertJson([
+            'data' => [
+                'id' => $user->getId(),
+                'name' => $user->getName(),
+                'email' => $user->getEmail(),
+            ],
+        ]);
     }
 }
