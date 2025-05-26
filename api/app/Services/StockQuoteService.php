@@ -33,6 +33,7 @@ class StockQuoteService
         $quote = $data['Global Quote'] ?? null;
 
         if (!$quote) {
+            Log::error("error while get data from external api: ", $data);
             return null;
         }
 

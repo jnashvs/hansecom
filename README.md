@@ -95,6 +95,9 @@ npm run dev -- --host 0.0.0.0 --port 8080
 | Mailhog          | http://localhost:8026         | View sent emails                                 |
 | RabbitMQ         | http://localhost:15672        | Queue manager (username: guest; password: guest) |
 
+
+- https://www.alphavantage.co - limit of 25 requests per day: stay alert and don't make too many request when testing it
+
 ---
 
 ## 📂 Project Structure
