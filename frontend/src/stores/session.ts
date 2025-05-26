@@ -95,17 +95,11 @@ export const useSessionStore = defineStore('session', {
     },
 
     async doLogout(): Promise<void> {
-      try {
-        const logoutIf = ApiService(ApiPath.auth.logout)
-        await logoutIf.post();
-      } catch (error) {
-        console.error(error);
-      }
-      destroyToken()
+      destroyToken();
       this.token = undefined;
       this.userDetails = undefined;
       this.error = undefined;
-      await router.push({name: "login"});
+      await router.push({ name: 'login' });
     },
   },
 });

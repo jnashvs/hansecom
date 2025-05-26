@@ -82,10 +82,13 @@ const currentPage = ref(1);
 const totalPages = computed(() => Math.ceil(stocksStore.recordsTotal / pageSize));
 
 const searchQuote = async () => {
+
+  if (!quoteSymbol.value) return;
+
   isLoading.value = true;
   quoteError.value = '';
   quoteResult.value = null;
-  if (!quoteSymbol.value) return;
+
   try {
     quoteResult.value = await stocksStore.fetchQuote(quoteSymbol.value);
   } catch (err: any) {

@@ -38,22 +38,24 @@ const router = createRouter({
 });
 
 router.beforeEach((to, from, next) => {
-  const sessionStore = useSessionStore();
-  const isLoggedIn = sessionStore.isAuthenticated;
+    const sessionStore = useSessionStore();
+    const isLoggedIn = sessionStore.isAuthenticated;
 
-  if (to.meta.pageTitle) {
-    document.title = `${to.meta.pageTitle} - ${import.meta.env.VITE_NAME}`;
-  }
+    if (to.meta.pageTitle) {
+        document.title = `${to.meta.pageTitle} - ${import.meta.env.VITE_NAME}`;
+    }
 
-  if (to.meta.guest && isLoggedIn) {
-    return next({ name: 'home' });
-  }
+    if (to.meta.guest && isLoggedIn) {
+        return next({ name: '/' });
+    }
 
-  if (to.meta.requiresAuth && !isLoggedIn) {
-    return next({ name: 'login' });
-  }
+    if (to.meta.requiresAuth && !isLoggedIn) {
+        if (from.name !== 'login') {
+            return next({ name: 'login' });
+        }
+    }
 
-  next();
+    next();
 });
 
 export default router;
