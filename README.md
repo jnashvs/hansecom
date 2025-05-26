@@ -160,7 +160,7 @@ Password: password
 php artisan migrate          # Run migrations
 php artisan db:seed          # Seed example data (optional)
 php artisan test             # Run tests
-php artisan queue:work       # Start queue worker
+php artisan queue:work --queue=emails       # Start queue worker to test rabbitmq
 ```
 
 ### Docker
