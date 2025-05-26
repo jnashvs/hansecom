@@ -119,7 +119,7 @@ export const ApiService = (endpoint: string) => {
       pageIndex: number | undefined;
       pageSize: number | undefined;
       sortBy: string | undefined;
-      sortDesc: boolean | undefined
+      sortDesc: number | undefined
     }
   }) => {
     loading.value = true;

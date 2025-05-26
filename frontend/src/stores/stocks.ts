@@ -19,7 +19,7 @@ export const useStocksStore = defineStore('stocks', {
       pageIndex = 0,
       pageSize = 6,
       sortBy = 'created_at',
-      sortDesc
+      sortDesc = 0
     }: ParamsQuery = {}) {
       this.loading = true;
       this.error = null;

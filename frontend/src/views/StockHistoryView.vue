@@ -24,12 +24,9 @@
         <table v-if="!stocksStore.loading && !stocksStore.error" class="table table-striped table-bordered rounded-2">
           <thead class="thead-dark">
             <tr>
-              <th>Date</th>
-              <th>Symbol</th>
-              <th>Open</th>
-              <th>High</th>
-              <th>Low</th>
-              <th>Close</th>
+              <th v-for="column in columns" @click="sort(column.key)">
+                {{ column.label }} <i :class="getSortIcon(column.key)"></i>
+              </th>
             </tr>
           </thead>
           <tbody>
@@ -71,6 +68,15 @@ import { useStocksStore } from '@/stores/stocks';
 import type { Stock } from '@/core/models/Stock/Stock';
 import StockQuoteDetail from '@/components/StockQuoteDetail.vue';
 
+const columns = [
+  { key: 'date', label: 'Date' },
+  { key: 'symbol', label: 'Symbol' },
+  { key: 'open', label: 'Open' },
+  { key: 'high', label: 'High' },
+  { key: 'low', label: 'Low' },
+  { key: 'close', label: 'Close' },
+];
+
 const stocksStore = useStocksStore();
 const quoteSymbol = ref('');
 const quoteResult = ref<Stock|null>(null);
@@ -99,8 +105,31 @@ const searchQuote = async () => {
   }
 };
 
+const sortBy = ref('created_at');
+const sortDesc = ref(false);
+
+const sort = (column: string) => {
+  if (sortBy.value === column) {
+    sortDesc.value = !sortDesc.value;
+  } else {
+    sortBy.value = column;
+    sortDesc.value = false;
+  }
+  loadStockHistory();
+};
+
+const getSortIcon = (column: string) => {
+  if (sortBy.value !== column) return 'bi bi-arrow-down-up';
+  return sortDesc.value ? 'bi bi-arrow-down' : 'bi bi-arrow-up';
+};
+
 const loadStockHistory = () => {
-  stocksStore.fetchStocks({ pageIndex: currentPage.value, pageSize });
+  stocksStore.fetchStocks({
+    pageIndex: currentPage.value,
+    pageSize,
+    sortBy: sortBy.value,
+    sortDesc: sortDesc.value ? 1 : 0,
+  });
 };
 
 const goToPage = (page: number) => {

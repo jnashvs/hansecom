@@ -84,12 +84,12 @@ export const SessionService = () => {
 
   const doLogout = (): Promise<void> => {
     return new Promise<void>((resolve) => {
-      CookieHelper.removeCookie(AUTH_KEY);
-      CookieHelper.removeCookie(AUTH_VALIDATING_KEY);
-      state.token = undefined;
-      state.authenticating = false;
-      state.userDetails = undefined;
-      resolve();
+        CookieHelper.removeCookie(AUTH_KEY);
+        CookieHelper.removeCookie(AUTH_VALIDATING_KEY);
+        state.token = undefined;
+        state.authenticating = false;
+        state.userDetails = undefined;
+        resolve();
     });
   };
 

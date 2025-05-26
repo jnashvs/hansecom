@@ -3,5 +3,5 @@ export interface ParamsQuery {
   pageIndex?: number;
   pageSize?: number;
   sortBy?: string;
-  sortDesc?: boolean;
+  sortDesc?: number;
 }
