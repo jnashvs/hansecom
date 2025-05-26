@@ -60,7 +60,6 @@ class RegisterTest extends TestCase
     #[\PHPUnit\Framework\Attributes\Test]
     public function it_retrieves_authenticated_user_information()
     {
-        // Create a user
         $user = User::factory()->create();
 
         $token = JWTAuth::fromUser($user);
