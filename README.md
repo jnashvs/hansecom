@@ -108,6 +108,7 @@ hansecom/
 ├── frontend/          # Vue.js frontend
 ├── db/                # Persistent database data
 ├── docker-compose.yml # Main Docker file
+└── Stock API.postman_collection.json          # Postman Collection to be imported - make sure the base url is properly setup
 └── README.md          # This file :)
 ```
 
