@@ -86,6 +86,11 @@ export const ApiService = (endpoint: string) => {
           errorList = [response.message, response.details].filter(Boolean);
           NotificationHelper.showError(errorList);
           break;
+        case 429:
+          response = axiosErr.response.data;
+          errorList = [response.message, response.details].filter(Boolean);
+          NotificationHelper.showError(errorList);
+          break;
         case 500:
           response = axiosErr.response.data;
           errorList = [response.details].filter(Boolean);
