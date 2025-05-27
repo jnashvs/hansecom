@@ -38,7 +38,7 @@ docker network create hanse-laravel-network
 To build and start all services:
 
 ```bash
-docker-compose up --build
+docker-compose up --build -d
 ```
 
 This command will start the following services:
@@ -81,6 +81,7 @@ This is already automated in `docker-compose`, but if you want to manually acces
 docker exec -it $(docker ps -qf "name=vue-frontend") bash
 npm install
 npm run dev -- --host 0.0.0.0 --port 8080
+cp .env.example .env
 ```
 
 ---
