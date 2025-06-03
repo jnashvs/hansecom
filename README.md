@@ -1,4 +1,4 @@
-# 🚀 Hansecom Project - Local Setup with Docker v1
+# 🚀 Hansecom Project - Local Setup with Docker v2
 
 Welcome to the **Hansecom** project! This guide will help you quickly set up the entire development environment using **Docker**.
 
