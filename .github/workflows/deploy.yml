@@ -25,7 +25,9 @@ jobs:
           key: "${{ secrets.SERVER_SSH_KEY }}"
           script: |
             ls
+            echo "cd hansecom folder"
             cd /root/hansecom
+            echo "show folders inside hansecom"
             ls
             git pull origin main
             docker compose down || true
