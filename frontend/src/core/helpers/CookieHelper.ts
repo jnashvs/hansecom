@@ -22,6 +22,8 @@ export class CookieHelper {
       ? import.meta.env.VITE_COOKIE_DOMAIN
       : window.location.hostname;
 
+    console.log("domain: ", domain);
+
     const cookieString = `${name}=${cookieValue}; expires=${exp.toUTCString()}; path=/; domain=${domain}; SameSite=Lax; Secure`;
 
     document.cookie = cookieString;
