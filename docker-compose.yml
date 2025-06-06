@@ -19,37 +19,6 @@ services:
     ports:
       - "3307:3306"
 
-  phpmyadmin-hanse:
-    image: phpmyadmin
-    networks:
-      - hanse-laravel-network
-    ports:
-      - "8083:80"
-    environment:
-      - PMA_ARBITRARY=1
-      - UPLOAD_LIMIT=512M
-
-  mailhog-hanse:
-    image: mailhog/mailhog
-    container_name: 'mailhog-hanse'
-    networks:
-      - hanse-laravel-network
-    ports:
-      - "1026:1025"
-      - "8026:8025"
-
-  rabbitmq:
-    image: rabbitmq:3-management
-    container_name: rabbitmq-hanse
-    networks:
-      - hanse-laravel-network
-    ports:
-      - "5672:5672"
-      - "15672:15672"
-    environment:
-      RABBITMQ_DEFAULT_USER: guest
-      RABBITMQ_DEFAULT_PASS: guest
-
   laravel-api:
     image: bitnami/laravel:latest
     networks:
@@ -65,13 +34,6 @@ services:
       DB_PORT: 3306
       DB_USERNAME: root
       DB_DATABASE: hanse_db
-      QUEUE_CONNECTION: rabbitmq
-      RABBITMQ_HOST: rabbitmq
-      RABBITMQ_PORT: 5672
-      RABBITMQ_USER: guest
-      RABBITMQ_PASSWORD: guest
-      RABBITMQ_VHOST: /
-      RABBITMQ_QUEUE: emails
     working_dir: /app
     command: >
       bash -c "
