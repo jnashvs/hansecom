@@ -29,10 +29,13 @@ services:
       DB_HOST: mariadb-hanse
       DB_PORT: 3306
       DB_USERNAME: root
+      DB_PASSWORD: rootpass
       DB_DATABASE: hanse_db
     depends_on:
       - mariadb-hanse
-    command: php artisan serve --host=0.0.0.0 --port=8080
+    command: ["sh", "-c", "./wait-for-it.sh mariadb-hanse:3306 -- php artisan serve --host=0.0.0.0 --port=8080"]
+    volumes:
+      - ./api/wait-for-it.sh:/app/wait-for-it.sh
 
   vue-frontend:
     build:
