@@ -20,38 +20,25 @@ services:
       - "3307:3306"
 
   laravel-api:
-    image: bitnami/laravel:latest
+    build:
+      context: ./api
     networks:
       - hanse-laravel-network
     ports:
       - "8084:8080"
-    volumes:
-      - ./api:/app
     environment:
-      PHP_MEMORY_LIMIT: 1024M
-      PHP_MAX_EXECUTION_TIME: 3600
       DB_HOST: mariadb-hanse
       DB_PORT: 3306
       DB_USERNAME: root
       DB_DATABASE: hanse_db
-    working_dir: /app
-    command: >
-      bash -c "
-        composer install &&
-        php artisan serve --host=0.0.0.0 --port=8080
-      "
+    depends_on:
+      - mariadb-hanse
+    command: php artisan serve --host=0.0.0.0 --port=8080
 
   vue-frontend:
-    image: node:latest
+    build:
+      context: ./frontend
     networks:
       - hanse-laravel-network
     ports:
-      - "8085:8080"
-    volumes:
-      - ./frontend:/app
-    working_dir: /app
-    command: >
-      bash -c "
-        npm install &&
-        npm run dev -- --host 0.0.0.0 --port 8080
-      "
+      - "8085:80"
