@@ -1,6 +1,6 @@
 <template>
   <div class="login-page container form-container">
-    <h1 class="text-center">Login</h1>
+    <h1 class="text-center">Login Access</h1>
     <form @submit.prevent="submitForm" class="needs-validation" novalidate>
       <div class="mb-3">
         <label for="email" class="form-label">Email:</label>
