@@ -24,7 +24,9 @@ jobs:
           username: "${{ secrets.SERVER_USER }}"
           key: "${{ secrets.SERVER_SSH_KEY }}"
           script: |
+            ls
             cd /root/hansecom
+            ls
             git pull origin main
             docker compose down || true
             docker compose build
