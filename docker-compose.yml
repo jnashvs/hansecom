@@ -13,9 +13,9 @@ services:
     volumes:
       - ./db:/bitnami/mariadb
     environment:
-      ALLOW_EMPTY_PASSWORD: "yes"
-      MARIADB_USER: db_hanse_user
+      MARIADB_ROOT_PASSWORD: rootpass
       MARIADB_DATABASE: hanse_db
+      MARIADB_USER: db_hanse_user
     ports:
       - "3307:3306"
 
