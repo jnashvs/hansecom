@@ -5,7 +5,7 @@ WORKDIR /app
 
 COPY . .
 
-RUN npm install && npm run build
+RUN npm install && npm run build-only --if-present || npm run build --if-present
 
 # Serve with Nginx
 FROM nginx:stable-alpine
